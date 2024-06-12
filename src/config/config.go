@@ -7,8 +7,9 @@ import (
 )
 
 type Config struct {
-	TargetURL    string `json:"target_url"`
-	TargetDomain string `json:"target_domain"`
+	TargetURL      string `json:"target_url"`
+	TargetDomain   string `json:"target_domain"`
+	TargetCategory string `json:"target_category"`
 }
 
 func LoadConfig(path string) (*Config, error) {

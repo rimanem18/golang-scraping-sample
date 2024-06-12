@@ -17,17 +17,19 @@ type Article struct {
 }
 
 type Scraper struct {
-	TargetURL    string
-	TargetDomain string
-	MaxArticles  int
-	Results      []Article
+	TargetURL      string
+	TargetDomain   string
+	TargetCategory string
+	MaxArticles    int
+	Results        []Article
 }
 
 func NewScraper(cfg *config.Config) *Scraper {
 	return &Scraper{
-		TargetURL:    cfg.TargetURL,
-		TargetDomain: cfg.TargetDomain,
-		MaxArticles:  3, // 取得する記事の数
+		TargetURL:      cfg.TargetURL,
+		TargetDomain:   cfg.TargetDomain,
+		TargetCategory: cfg.TargetCategory,
+		MaxArticles:    3, // 取得する記事の数
 	}
 }
 
@@ -71,6 +73,6 @@ func (s *Scraper) Scrape() {
 		log.Fatalln("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
 	})
 
-	url := fmt.Sprintf("%s/topics/go?order=latest", s.TargetURL)
+	url := fmt.Sprintf("%s/topics/%s?order=latest", s.TargetURL, s.TargetCategory)
 	c.Visit(url)
 }
