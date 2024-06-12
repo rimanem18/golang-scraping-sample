@@ -4,5 +4,5 @@ services:
       context: .
       dockerfile: ./docker/go/Dockerfile
     volumes:
-      - ./:/go/src/app
+      - ./src/:/go/src/app
     tty: true
