@@ -10,13 +10,13 @@ import (
 	"google.golang.org/api/sheets/v4"
 )
 
-// Service wraps the Google Sheets API service
-type Service struct {
+// SheetsService wraps the Google Sheets API service
+type SheetsService struct {
 	srv *sheets.Service
 }
 
-// NewService creates a new instance of Service
-func NewService(ctx context.Context, credentialsPath string) (*Service, error) {
+// NewSheetsService creates a new instance of SheetsService
+func NewSheetsService(ctx context.Context, credentialsPath string) (*SheetsService, error) {
 	b, err := os.ReadFile(credentialsPath)
 	if err != nil {
 		return nil, err
@@ -33,11 +33,11 @@ func NewService(ctx context.Context, credentialsPath string) (*Service, error) {
 		return nil, err
 	}
 
-	return &Service{srv: srv}, nil
+	return &SheetsService{srv: srv}, nil
 }
 
 // WriteData writes data to the specified range in the spreadsheet
-func (s *Service) WriteData(spreadsheetId, writeRange string, values [][]interface{}) error {
+func (s *SheetsService) WriteData(spreadsheetId, writeRange string, values [][]interface{}) error {
 	var vr sheets.ValueRange
 	vr.Values = values
 
