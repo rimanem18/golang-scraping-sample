@@ -28,7 +28,7 @@ func main() {
 	}
 
 	spreadsheetId := os.Getenv("SPREAD_SHEETS_ID")
-	writeRange := fmt.Sprintf("%s!A1:B5", os.Getenv("WORKSHEET_NAME"))
+	writeRange := fmt.Sprintf("%s!A1", os.Getenv("WORKSHEET_NAME"))
 	values := [][]interface{}{
 		{"Title", "URL"},
 	}
