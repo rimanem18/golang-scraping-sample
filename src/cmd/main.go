@@ -24,21 +24,22 @@ func main() {
 	CREDENTIAL_FILE := os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")
 	sheetsService, err := sheets.NewSheetsService(ctx, CREDENTIAL_FILE)
 	if err != nil {
-		log.Fatalf("Failed to create Sheets service: %v", err)
+		log.Fatalf("シートサービスの作成に失敗しました。: %v", err)
 	}
 
-	spreadsheetId := os.Getenv("SPREAD_SHEETS_ID")
-	writeRange := fmt.Sprintf("%s!A1", os.Getenv("WORKSHEET_NAME"))
+	// スクレイピング結果をまとめる
 	values := [][]interface{}{
 		{"Title", "URL"},
 	}
-
 	for _, article := range scraper.Results {
 		values = append(values, []interface{}{article.Title, article.URL})
 	}
 
+	// 保持しておいた情報をシートに書き込む
+	spreadsheetId := os.Getenv("SPREAD_SHEETS_ID")
+	writeRange := fmt.Sprintf("%s!A1", os.Getenv("WORKSHEET_NAME"))
 	err = sheetsService.WriteData(spreadsheetId, writeRange, values)
 	if err != nil {
-		log.Fatalf("Failed to write data to sheet: %v", err)
+		log.Fatalf("データをシートに書き込むことができませんでした。: %v", err)
 	}
 }

@@ -10,12 +10,12 @@ import (
 	"google.golang.org/api/sheets/v4"
 )
 
-// SheetsService wraps the Google Sheets API service
+// Google Sheets API をラップする
 type SheetsService struct {
 	srv *sheets.Service
 }
 
-// NewSheetsService creates a new instance of SheetsService
+// インスタンスの作成
 func NewSheetsService(ctx context.Context, credentialsPath string) (*SheetsService, error) {
 	b, err := os.ReadFile(credentialsPath)
 	if err != nil {
@@ -36,7 +36,7 @@ func NewSheetsService(ctx context.Context, credentialsPath string) (*SheetsServi
 	return &SheetsService{srv: srv}, nil
 }
 
-// WriteData writes data to the specified range in the spreadsheet
+// 指定された範囲にデータを書き込む
 func (s *SheetsService) WriteData(spreadsheetId, writeRange string, values [][]interface{}) error {
 	var vr sheets.ValueRange
 	vr.Values = values
@@ -46,6 +46,8 @@ func (s *SheetsService) WriteData(spreadsheetId, writeRange string, values [][]i
 		return err
 	}
 
-	log.Println("Data successfully written to sheet")
+	log.Println("シートへの書き込みに成功しました。")
+	return nil
+}
 	return nil
 }
