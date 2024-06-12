@@ -1,19 +1,19 @@
-package main
+package scraper
 
 import (
 	"fmt"
 	"log"
 	"time"
 
+	config "app/config"
+
 	"github.com/gocolly/colly/v2"
 )
 
-const (
-	targetDomain = "zenn.dev"
-	targetURL    = "https://" + targetDomain
-)
+func Scrape() {
+	targetURL := config.TargetURL
+	targetDomain := config.TargetDomain
 
-func main() {
 	c := colly.NewCollector(
 		// Zenn 以外のアクセスを許可しない
 		colly.AllowedDomains(targetDomain),
@@ -33,13 +33,18 @@ func main() {
 	})
 
 	// 全ての article 要素に対して実行される関数
+	// 3つの記事を取得したら終了
+	count := 0
 	c.OnHTML("article", func(e *colly.HTMLElement) {
-		title := e.DOM.Find("h2").Text()
-		href, ok := e.DOM.Find("a").Attr("href")
-		if !ok {
-			href = "Not Link!"
+		if count < 3 {
+			title := e.DOM.Find("h2").Text()
+			href, ok := e.DOM.Find("a").Attr("href")
+			if !ok {
+				href = "Not Link!"
+			}
+			log.Printf("Title: %s, URL: %s%s", title, targetURL, href)
+			count++
 		}
-		log.Printf("Title: %s, URL: %s%s", title, targetURL, href)
 	})
 
 	c.OnHTML("a.Button_secondary__cM38g.Button_baseStyle__Vhn6Y.Button_medium__STW9Z.Button_shadow__3xqQY", func(e *colly.HTMLElement) {
