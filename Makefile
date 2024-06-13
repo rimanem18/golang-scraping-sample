@@ -27,3 +27,5 @@ amend:
 	git commit --amend
 fmt:
 	docker compose exec app ash -c 'go fmt ./...'
+run:
+	docker compose exec app ash -c 'go run cmd/main.go'
