@@ -38,7 +38,7 @@ func NewScraper(cfg *config.Config) *Scraper {
 }
 
 // スクレイピングの実行
-func (s *Scraper) Scrape() {
+func (s *Scraper) Scrape(category string) {
 
 	// スクレイピングの設定
 	c := colly.NewCollector(
@@ -84,7 +84,7 @@ func (s *Scraper) Scrape() {
 	// 指定した URL にアクセスしてスクレイピングの開始
 	url := fmt.Sprintf("%s/topics/%s?order=%s",
 		s.TargetURL,
-		s.Categories[0],
+		category,
 		s.Order,
 	)
 	c.Visit(url)

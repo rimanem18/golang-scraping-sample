@@ -1,7 +1,7 @@
 {
 	"target_url": "https://zenn.dev",
 	"target_domain": "zenn.dev",
-    "categories": ["docker","go","react","typescript","googlecloud","githuc","java"],
+    "categories": ["docker","go","react","typescript","googlecloud"],
     "order": "latest",
     "max_articles": 10
 }
