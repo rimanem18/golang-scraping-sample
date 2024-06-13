@@ -7,9 +7,11 @@ import (
 )
 
 type Config struct {
-	TargetURL      string `json:"target_url"`
-	TargetDomain   string `json:"target_domain"`
-	TargetCategory string `json:"target_category"`
+	TargetURL    string   `json:"target_url"`
+	TargetDomain string   `json:"target_domain"`
+	Categories   []string `json:"categories"`
+	Order        string   `json:"order"`
+	MaxArticles  int      `json:"max_articles"`
 }
 
 func LoadConfig(path string) (*Config, error) {
