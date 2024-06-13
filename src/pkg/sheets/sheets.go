@@ -49,5 +49,28 @@ func (s *SheetsService) WriteData(spreadsheetId, writeRange string, values [][]i
 	log.Println("シートへの書き込みに成功しました。")
 	return nil
 }
+
+// 新たなシートを作成する
+func (s *SheetsService) CreateSheet(spreadsheetId, sheetName string) error {
+	requests := []*sheets.Request{
+		{
+			AddSheet: &sheets.AddSheetRequest{
+				Properties: &sheets.SheetProperties{
+					Title: sheetName,
+				},
+			},
+		},
+	}
+
+	batchUpdateRequest := &sheets.BatchUpdateSpreadsheetRequest{
+		Requests: requests,
+	}
+
+	_, err := s.srv.Spreadsheets.BatchUpdate(spreadsheetId, batchUpdateRequest).Do()
+	if err != nil {
+		return err
+	}
+
+	log.Printf("シート '%s' の作成に成功しました。\n", sheetName)
 	return nil
 }

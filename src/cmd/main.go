@@ -35,9 +35,12 @@ func main() {
 		values = append(values, []interface{}{article.Title, article.URL})
 	}
 
-	// 保持しておいた情報をシートに書き込む
 	spreadsheetId := os.Getenv("SPREAD_SHEETS_ID")
-	writeRange := fmt.Sprintf("%s!A1", os.Getenv("WORKSHEET_NAME"))
+	sheetName := cfg.Category
+	sheetsService.CreateSheet(spreadsheetId, sheetName)
+
+	// 保持しておいた情報をシートに書き込む
+	writeRange := fmt.Sprintf("%s!A1", sheetName)
 	err = sheetsService.WriteData(spreadsheetId, writeRange, values)
 	if err != nil {
 		log.Fatalf("データをシートに書き込むことができませんでした。: %v", err)

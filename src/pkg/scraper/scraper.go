@@ -18,22 +18,22 @@ type Article struct {
 
 // スクレイパーの構造体
 type Scraper struct {
-	TargetURL      string
-	TargetDomain   string
-	TargetCategory string
-	Order          string
-	MaxArticles    int
-	Results        []Article
+	TargetURL    string
+	TargetDomain string
+	Category     string
+	Order        string
+	MaxArticles  int
+	Results      []Article
 }
 
 // スクレイパーの作成
 func NewScraper(cfg *config.Config) *Scraper {
 	return &Scraper{
-		TargetURL:      cfg.TargetURL,
-		TargetDomain:   cfg.TargetDomain,
-		TargetCategory: cfg.TargetCategory,
-		Order:          cfg.Order,
-		MaxArticles:    cfg.MaxArticles,
+		TargetURL:    cfg.TargetURL,
+		TargetDomain: cfg.TargetDomain,
+		Category:     cfg.Category,
+		Order:        cfg.Order,
+		MaxArticles:  cfg.MaxArticles,
 	}
 }
 
@@ -84,7 +84,7 @@ func (s *Scraper) Scrape() {
 	// 指定した URL にアクセスしてスクレイピングの開始
 	url := fmt.Sprintf("%s/topics/%s?order=%s",
 		s.TargetURL,
-		s.TargetCategory,
+		s.Category,
 		s.Order,
 	)
 	c.Visit(url)

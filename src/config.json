@@ -1,7 +1,7 @@
 {
 	"target_url": "https://zenn.dev",
 	"target_domain": "zenn.dev",
-    "target_category": "rust",
+    "category": "java",
     "order": "latest",
     "max_articles": 10
 }
