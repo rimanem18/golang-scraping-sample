@@ -36,7 +36,7 @@ func main() {
 	}
 
 	spreadsheetId := os.Getenv("SPREAD_SHEETS_ID")
-	sheetName := cfg.Category
+	sheetName := cfg.Categories[0]
 	sheetsService.CreateSheet(spreadsheetId, sheetName)
 
 	// 保持しておいた情報をシートに書き込む

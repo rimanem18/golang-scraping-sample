@@ -20,7 +20,7 @@ type Article struct {
 type Scraper struct {
 	TargetURL    string
 	TargetDomain string
-	Category     string
+	Categories   []string
 	Order        string
 	MaxArticles  int
 	Results      []Article
@@ -31,7 +31,7 @@ func NewScraper(cfg *config.Config) *Scraper {
 	return &Scraper{
 		TargetURL:    cfg.TargetURL,
 		TargetDomain: cfg.TargetDomain,
-		Category:     cfg.Category,
+		Categories:   cfg.Categories,
 		Order:        cfg.Order,
 		MaxArticles:  cfg.MaxArticles,
 	}
@@ -84,7 +84,7 @@ func (s *Scraper) Scrape() {
 	// 指定した URL にアクセスしてスクレイピングの開始
 	url := fmt.Sprintf("%s/topics/%s?order=%s",
 		s.TargetURL,
-		s.Category,
+		s.Categories[0],
 		s.Order,
 	)
 	c.Visit(url)
